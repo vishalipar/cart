@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VICart</title>
-</head>
-<body>
-    <marquee behavior="" direction="">This is most friendly website ever for both vendor as well as customer.</marquee>
-    <center><h1>Welcome to VICart</h1></center>
-</body>
-</html>
+{% extends "index.html" %} {% block title %}our website{% endblock %} 
+{% block content %}
+<div class="border-2 border-stone-500 h-64 w-[90%] mx-auto my-5">
+  {% comment %}
+  <img
+    src="https://static.vecteezy.com/system/resources/thumbnails/002/216/694/small_2x/shopping-trendy-banner-vector.jpg"
+    alt=""
+  />
+  {% endcomment %}
+</div>
+
+<div class="p-4 my-20">
+  {% if not products %}
+  <h3 class='text-center text-lg text-gray-700'>No products available</h3>
+  {% else %}
+  
+  <div
+    class="flex justify-between px-1 md:px-[6%] mb-4 text-lg md:text-3xl text-stone-700"
+  >
+    <h2 class="font-bold">Popular products</h2>
+    <button
+      class="border border-1 md:border-2 border-[#038d63] px-3 text-[#038d63] text-sm md:text-lg rounded"
+    >
+      <a href="{% url 'store' %}">See all</a>
+    </button>
+  </div>
+
+    <div
+      class="flex md:grid justify-center flex-wrap md:grid-cols-2 lg:grid-cols-4 gap-y-6 md:gap-12 w-[90%] md:w-fit mx-auto"
+    >
+    {% for product in products %}
+      <div class="">
+        <a href="{{ product.get_url }}">
+          <div class="w-[80%] md:w-72 h-fit border border-stone-300 rounded-lg p-3">
+            <div class='lg:h-72 lg:flex justify-center'>
+              
+              <img src="{{ product.images.url }}" alt="Product Image" class='lg:object-cover'>
+            </div>
+            <div class="flex flex-col items-center mb-5 mt-2">
+              <span class="text-lg md:text-2xl font-semibold"
+                >{{product.product_name}}</span
+              >
+              <span class="font-medium text-base md:text-lg">₹ {{product.price}}</span>
+              <span>Ratings</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %} 
+    </div>
+  {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}
