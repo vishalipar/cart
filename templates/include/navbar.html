@@ -69,11 +69,11 @@
           <div class="hidden md:block">
             <small class="">Welcome {{user.first_name}}!</small>
             <div>
-              <a href="{% url 'dashboard' %}">Dashboard</a> <span class=""> | </span>
+              <a href="{% url 'register' %}">Dashboard</a> <span class=""> | </span>
 {% comment %} <<<<<<< HEAD {% endcomment %}
               {% comment %} <a href="{% url 'register' %}"> Logout</a> {% endcomment %}
 
-              <a href="{% url 'logout' %}"> Logout</a>
+              <a href="{% url 'register' %}"> Logout</a>
             </div>
           </div>
         {% endif %}
