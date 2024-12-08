@@ -86,7 +86,7 @@
         
         
 
-        <a href="{% url 'home' %}" class="">
+        <a href="{% url 'cart' %}" class="">
           <div class="text-lg relative">
             <i class="fa fa-shopping-cart"></i>
             <span
@@ -106,19 +106,24 @@
     
     <ul class="h-[50%] my-auto w-[80%] ml-auto mr-0 mt-20 space-y-4">
       <li>
-        Category
+        <a href="{% url 'home' %}">Home</a>
       </li>
       <li>
         <a href="{% url 'store' %}">Store</a>
-      </li>
-      <li>
-        Search
       </li>
       <li>
         <a href="{% url 'login' %}">Sign in</a>
       </li>
       <li>
         <a href="{% url 'register' %}">Register</a>
+      </li>
+      <li>
+        {% comment %} Search {% endcomment %}
+        <form action="{% url 'search' %}" method='GET'>
+          <input type="text" class='w-50 h-8 text-sm font-normal pl-2 rounded' placeholder='Search...' name='keyword'>
+          <button type='submit'><i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
       </li>
     </ul>
   </div>

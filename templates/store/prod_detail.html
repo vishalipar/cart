@@ -2,11 +2,11 @@
 {% block title %}product detail{% endblock %}
 {% block content %}
 
-<div class='mb-[83vh] md:mb-2'>
-    <div class='mt-4 md:mt-14 mx-2 md:mx-[10%] h-[170vh] md:h-fit w-[95%] md:w-[80%]'>
-        <div class='md:flex h-[78vh] border border-gray-200'>
+<div class='mb-0 md:mb-2'>
+    <div class='mt-4 md:mt-14 mx-2 md:mx-[10%] h-fit w-[95%] md:w-[80%]'>
+        <div class='md:flex h-fit md:h-[78vh] border border-gray-200'>
             <div class='w-full md:w-[50%] h-full'>
-                <div class='flex justify-center h-[85%]'>
+                <div class='flex justify-center h-[85%] p-2'>
                     <img class='h-full' src="{{single_product.images.url}}" alt="">
                 </div>
                 <div class='flex space-x-2 p-2 w-full h-fit'>
@@ -17,7 +17,7 @@
                     
                 </div>
             </div>
-            <div class='w-full md:w-[50%] h-full border-l border-gray-200'>
+            <div class='w-full md:w-[50%] h-fit md:h-full border md:border-l border-gray-200'>
                 <div class='m-4 md:m-8'>
                     <div>
                         <div class='text-xl md:text-3xl text-stone-700 font-bold'>
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class='text-stone-700 h-[80vh] w-full md:w-[75%] mt-4 pt-[70vh] md:pt-1'>
+        <div class='text-stone-700 h-fit w-full md:w-[75%] mt-4 pt-1'>
             <div class='space-y-4'>
                 <div class='text-xl  font-bold'>
                     Write Your Review
@@ -84,7 +84,7 @@
                         <label for="">Review:</label>
                         <textarea type="text" class='border-stone-300 rounded' rows='4'></textarea>
                     </div>
-                    <p>You must be logged in to post a review. <a href="{% url 'home' %}" class='text-[#038d63]'> Login now</a></p>
+                    <p>You must be logged in to post a review. <a href="{% url 'login' %}" class='text-[#038d63]'> Login now</a></p>
                 </div>
                 <div class='pt-4'>
                     <div class='text-xl md:text-3xl font-bold'>
