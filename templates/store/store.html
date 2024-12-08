@@ -1,0 +1,192 @@
+{% extends "index.html" %} {% block title %}store{% endblock %} 
+{% block content %}
+
+<div>
+  <div
+    class="text-lg md:text-3xl font-bold px-2 md:px-20 py-4 md:py-8 text-[#038d63]"
+  >
+  {% if 'search' in request.path %}
+    {% comment %} <h2>Search Result</h2> {% endcomment %}
+    <div class='flex justify-between'>
+      <h2>Search Result</h2>
+      <div class='block md:hidden pr-2'>
+        <form action="{% url 'search' %}" method='GET'>
+          <input type="text" class='w-20 h-8 text-sm font-normal pl-2 rounded' placeholder='Search...' name='keyword'>
+          <button type='submit'><i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class='flex justify-between'>
+      <h2>Our Store</h2>
+      <div class='block md:hidden pr-2'>
+        <form action="{% url 'search' %}" method='GET'>
+          <input type="text" class='w-20 h-8 text-sm font-normal pl-2 rounded' placeholder='Search...' name='keyword'>
+          <button type='submit'><i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+  </div>
+
+  <div class="md:flex md:h-[73vh] px-2 md:px-20">
+    <div
+      class="bg-green-200 h-fit w-full md:w-[25%] p-2 space-y-2 md:space-y-0"
+    >
+      <div class="w-full max-w-xs mx-auto">
+        <!-- Category 1: Products -->
+        <div x-data="{ open: false }" class="mb-4">
+          <button
+            @click="open = !open"
+            class="flex justify-between w-full text-left text-[#038d63] py-2 px-4 rounded-md"
+          >
+            Categories
+            <p><i class="fa-solid fa-caret-down"></i></p>
+          </button>
+          <ul x-show="open" class="pl-4 mt-2 space-y-2 text-gray-700">
+            <li><a href="{% url 'store' %}">All Products</a></li>
+            {% for category in links %}
+              <li><a href="{{ category.get_url }}">{{category.category_name}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Category 2: Size -->
+        <div x-data="{ open: false }" class="mb-4">
+          <button
+            @click="open = !open"
+            class="flex justify-between w-full text-left text-[#038d63] py-2 px-4 rounded-md"
+          >
+            Sizes
+            <p><i class="fa-solid fa-caret-down"></i></p>
+            
+          </button>
+          <ul x-show="open" class="flex gap-2 pl-4 mt-2 space-y-2 text-stone-800">
+            <li><button class="border border-stone-300 text-sm font-bold py-1 px-1 mt-2 rounded">XS</button></li>
+            <li><button class="border border-stone-300 text-sm font-bold py-1 px-1 rounded">SM</button></li>
+            <li><button class="border border-stone-300 text-sm font-bold py-1 px-1 rounded">LG</button></li>
+            <li><button class="border border-stone-300 text-sm font-bold py-1 px-1 rounded">XXL</button></li>
+          </ul>
+        </div>
+
+        <!-- Category 3: Price Range -->
+        <div x-data="{ open: false }" class="mb-4">
+          <button
+            @click="open = !open"
+            class="flex justify-between w-full text-left text-[#038d63] py-2 px-4 rounded-md"
+          >
+            Price Range
+            <p><i class="fa-solid fa-caret-down"></i></p>
+            
+          </button>
+          <ul x-show="open" class="pl-4 mt-2 space-y-2 text-gray-700">
+            <div>
+                <div class='flex justify-between'>
+                    Min
+                    <p>Max</p>
+                </div>
+                <div class="flex justify-between">
+                    <button class="">
+                        <select name="" id="" class="border-stone-200 rounded">
+                            <option value="" selected>₹0</option>
+                            <option value="">₹50</option>
+                            <option value="">₹100</option>
+                            <option value="">₹150</option>
+                            <option value="">₹200</option>
+                            <option value="">₹500</option>
+                            <option value="">₹1000</option>
+                        </select>
+                    </button>
+                    <button class="">
+                        <select name="" id="" class="border-stone-200 rounded">
+                            <option value="" selected>₹50</option>
+                            <option value="">₹100</option>
+                            <option value="">₹150</option>
+                            <option value="">₹200</option>
+                            <option value="">₹500</option>
+                            <option value="">₹1000</option>
+                        </select>
+                    </button>
+                </div>
+                <div>
+                    <button class='bg-[#038d63] text-white w-full py-2 rounded mt-2'>Apply</button>
+                </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% comment %} right box {% endcomment %}
+    {% if not products %}
+      <h1 class='text-lg text-gray-700 text-center w-full'>No products available</h1>
+    
+    {% else %}
+    <div class="w-full ml-0 md:ml-8 space-y-2 md:space-y-4">
+      <span>{{product_count}} Items found</span>
+
+      {% comment %} <div
+        class="bg-red-200 md:flex gap-6 md:justify-start h-fit w-full pt-0"
+      > {% endcomment %}
+      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+      {% for product in products %}
+        <div
+          class="bg-white border-2 h-fit rounded p-2 mx-8 md:mx-auto mb-4"
+        >
+          <div class="mx-4 w-[90%]">
+            <a href="{{ product.get_url }}">
+              <img
+                src="{{product.images.url}}"
+                alt=""
+                class='h-60 w-auto mx-auto'
+              />
+            </a>
+          </div>
+          <div class="mx-4">
+            <h3 class="text-lg text-[#038d63]">
+              <a href="{{ product.get_url }}">{{product.product_name}}</a>
+            </h3>
+            <p class="font-bold">₹ {{product.price}}</p>
+            <a href="{{ product.get_url }}">
+              <button class="bg-[#038d63] text-white w-full mt-4 py-2 rounded">
+                View Details
+              </button>
+            </a>
+          </div>
+          <div></div>
+        </div>
+      {% endfor %}
+      </div>
+      {% comment %} preview pages {% endcomment %}
+      {% if products.has_other_pages %}
+        <div class="flex text-md md:text-lg text-stone-800 ml-4">
+          {% if products.has_previous %}
+          <a href="?page={{products.previous_page_number}}" class="border border-stone-800 px-2 rounded-l">Preview</a>
+          {% else %}
+          <a href="#" class="disabled border border-stone-800 px-2 rounded-l">Preview</a>
+          {% endif %}
+          
+          {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+              <a href="#" class="border border-stone-800 px-2">{{i}}</a>
+            {% else %}
+              <a href="?page={{i}}" class="border border-stone-800 px-2">{{i}}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if products.has_next %}
+            <a href="?page={{products.next_page_number}}" class="border border-stone-800 px-2 rounded-r">Next</a>
+          {% else %}
+            <a href="#" class="border border-stone-800 px-2 rounded-r">Next</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+
+{% endblock %}
