@@ -27,19 +27,15 @@ def add_cart(request, product_id):
     
     try:
         cart = Cart.objects.get(cart_id = _cart_id(request))
-        
     except Cart.DoesNotExist:
         cart = Cart.objects.create(
             cart_id = _cart_id(request)
         )
     cart.save()
     
-    
     is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
     if is_cart_item_exists:
         cart_item = CartItem.objects.filter(product=product,cart=cart)
-        
-        
         
         ex_var_list = []
         id = []
@@ -48,8 +44,6 @@ def add_cart(request, product_id):
             ex_var_list.append(list(existing_variation))
             id.append(item.id)
             
-        
-        
         if product_variation in ex_var_list:
             
             index = ex_var_list.index(product_variation)

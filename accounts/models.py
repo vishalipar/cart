@@ -1,10 +1,8 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
+    
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, type, password=None):
         if not email:
@@ -35,11 +33,7 @@ class MyAccountManager(BaseUserManager):
             password = password,
             first_name= first_name,
             last_name= last_name,
-# <<<<<<< HEAD
             type=type,
-# =======
-            # type = type,
-# >>>>>>> caf6102fd222ff60697431bf4ce4180c679b7ff9
         )
         
         user.is_admin = True
@@ -59,7 +53,7 @@ class Account(AbstractBaseUser):
     type = models.CharField(max_length=20, choices=type_choices, default='user')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=50, unique=True)
     phone_number = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique = True)
     
@@ -85,9 +79,3 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
     
-# =======
-    def has_module_perms(self, add_label):
-        return True
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-# >>>>>>> caf6102fd222ff60697431bf4ce4180c679b7ff9
