@@ -10,6 +10,6 @@ urlpatterns = [
     path('resetPassword/', views.resetPassword, name='resetPassword'),
     
     
-    # path('logout/', views.logout, name='logout'),
+    path('logout/', views.logout, name='logout'),
     
 ]

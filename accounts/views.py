@@ -87,7 +87,7 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
         
-        # print(password, email, user)
+        print(user, email, password)
         
         if user is not None:
             auth.login(request, user)
@@ -173,6 +173,12 @@ def login(request):
     
     return render(request, 'accounts/login.html')
     
+    
+@login_required(login_url='login')
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'You are logged out.')
+    return redirect('login')    
   
 def forgotPassword(request):
     if request.method == 'POST':

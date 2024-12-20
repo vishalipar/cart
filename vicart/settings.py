@@ -152,3 +152,9 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: "danger",
 }
+
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailAuthBackend',  # Replace with the correct path
+    'django.contrib.auth.backends.ModelBackend',   # Default backend for admin access
+]

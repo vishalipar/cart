@@ -66,6 +66,10 @@
             </div>
           </div>
         {% else %}
+          <div class="block md:hidden">
+            <small class="">Welcome {{user.first_name}}!</small>
+          </div>
+        
           <div class="hidden md:block">
             <small class="">Welcome {{user.first_name}}!</small>
             <div>
@@ -73,7 +77,7 @@
 {% comment %} <<<<<<< HEAD {% endcomment %}
               {% comment %} <a href="{% url 'register' %}"> Logout</a> {% endcomment %}
 
-              <a href="{% url 'register' %}"> Logout</a>
+              <a href="{% url 'logout' %}"> Logout</a>
             </div>
           </div>
         {% endif %}
@@ -104,19 +108,49 @@
   {% comment %} sidebar {% endcomment %}
   <div class="block md:hidden h-dvh w-[80%] bg-green-200/80 backdrop-blur-sm absolute top-0 left-0 duration-500" id="sidebar" style="left: -100%">
     
+    {% if user.id %}
+    <div class='mt-8 h-[10vh] w-full'>
+      <div class='flex py-2 h-[9vh] w-full bg-[#038d63]'>
+        <div class='h-[7vh] w-[7vh] ml-8 rounded-full bg-white'>
+          {% comment %} user profile image  {% endcomment %}
+        </div>
+        <div class='ml-2 text-white'>
+          {{ user.full_name }} <br>
+          <small>{{ user.email }}</small>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% if user.id %}
+    <ul class="h-[50%] my-auto w-[80%] ml-auto mr-0 mt-15 space-y-4">
+    {% else %}
     <ul class="h-[50%] my-auto w-[80%] ml-auto mr-0 mt-20 space-y-4">
+    {% endif %}
       <li>
         <a href="{% url 'home' %}">Home</a>
       </li>
       <li>
         <a href="{% url 'store' %}">Store</a>
       </li>
+      
+      {% if user.id is None %}
       <li>
         <a href="{% url 'login' %}">Sign in</a>
       </li>
       <li>
         <a href="{% url 'register' %}">Register</a>
       </li>
+      
+      {% else %}
+      <li>
+        <a href="{% url 'login' %}">Dashboard</a>
+      </li>
+      <li>
+        <a href="{% url 'logout' %}">Logout</a>
+      </li>
+      {% endif %}
+      
       <li>
         {% comment %} Search {% endcomment %}
         <form action="{% url 'search' %}" method='GET'>
