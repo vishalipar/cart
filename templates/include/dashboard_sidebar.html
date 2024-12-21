@@ -1,0 +1,12 @@
+<aside class='h-full w-full md:w-[23%] rounded-t-lg'>
+    <div class="flex flex-col h-fit w-full bg-white rounded-lg">
+        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit rounded-t-lg text-[#038d63] {% if '/accounts/' == request.path %}bg-[#038d63] text-white{% endif %}">Dashboard</a>
+        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit text-[#038d63] ">My Orders</a>
+        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit text-[#038d63] ">Edit Profile</a>
+        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit rounded-b-lg text-[#038d63] ">Change Password</a>
+    </div>
+    
+    <div class="flex h-fit mt-8">
+        <a href="{% url 'logout' %}" class="border border-stone-200 text-center py-2 w-full h-fit rounded-lg  bg-white"><i class="fa fa-power-off text-stone-600"></i>  <span>Log out</span></a>
+    </div>
+</aside>

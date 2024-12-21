@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+
+<div class='min-h-[77vh] pt-2 md:pt-12'>
+    <div class='block md:flex justify-between h-fit md:h-[32vh] w-[90%] md:w-[78%] mx-auto'>
+        {% comment %} left box {% endcomment %}
+        {% include "include/dashboard_sidebar.html" %}
+        
+        
+        {% comment %} right box {% endcomment %}
+        <div class='h-fit w-full md:w-[75%] mt-2 md:mt-0 lg:border border-stone-200 rounded'>
+            <div class='border-b border-stone-200 text-stone-700 pl-8 py-2'>
+                <strong>Logged in as :</strong> <span>{{user.full_name}}</span>
+            </div>
+            
+            
+            <div class='flex justify-between px-0 md:p-4 h-full'>
+                <div class='flex justify-center items-center border border-stone-200 rounded-lg h-[20vh] w-[49%]'>
+                    <div class='flex flex-col items-center h-fit w-fit space-y-2'>
+                        <strong class='text-l md:text-xl text-stone-700'>
+                            Total Orders
+                        </strong>
+                        <strong class='text-xl text-stone-700'>
+                            2
+                        </strong>
+                        <a href="" class='text-[#038d63]'>View Orders</a>
+                    </div>
+                </div>
+                
+                <div class='flex justify-center items-center border border-stone-200 rounded-lg h-[20vh] w-[49%]'>
+                    <div class='flex flex-col items-center h-fit w-fit'>
+                        <span class='h-12 w-12 rounded-full bg-red-600'>
+                            
+                        </span>
+                        <span class='text-stone-700 text-[12px] md:text-[16px]'>
+                            {{user.email}}
+                        </span>
+                        <span class='text-stone-700 text-md'>
+                            {{user.phone_number}}
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+{% endblock %}

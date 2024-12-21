@@ -242,3 +242,6 @@ def resetPassword(request):
     else:     
         return render(request, 'accounts/resetPassword.html')
   
+@login_required(login_url='login')
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')
