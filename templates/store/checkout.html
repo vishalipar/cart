@@ -12,7 +12,7 @@
             </div>
             <div class='text-stone-600 space-y-4'>
                 <div class='space-y-2 md:space-y-4'>
-                    <form action="" method='POST'>
+                    <form action="{% url 'place_order' %}" method='POST'>
                         {% csrf_token %}
                     <div class='flex gap-2'>
                         <div class='w-[50%]'>

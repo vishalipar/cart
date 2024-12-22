@@ -1,0 +1,127 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="flex flex-col items-center min-h-[80vh] bg-stone-100 h-fit">
+    <h4 class="pt-6 md:pt-8 text-center text-stone-600 text-lg font-bold">Review Your Order and Make Payment</h4>
+    {% comment %} main containers  {% endcomment %}
+    <div class="block md:flex justify-between text-stone-600 w-full md:w-[62%] h-full">
+        {% comment %} left containers  {% endcomment %}
+        <div class="w-full md:w-[65%] h-fit">
+            <div class="w-full h-fit border border-stone-200 rounded-lg bg-white">
+                <div class="border-b border-stone-200">
+                    <h3 class="font-bold p-3">Billing Address</h3>
+                </div>
+                <div class="">
+                    <h3 class="p-3 text-sm">
+                        <p class="">{{order.full_name}}</p>
+                        <p class="">{{order.full_address}}</p>
+                        <p class="">{{order.city}}, {{order.state}}</p>
+                        <p class="">{{order.country}}</p>
+                        <p class="">{{order.email}}</p>
+                        <p class="">{{order.phone}}</p>
+                        {% if order.order_note %}
+                            <b>Order Note: </b>{{order.order_note}}
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+            <div class="w-full h-fit border border-stone-200 rounded-lg bg-white">
+                <div class="border-b border-stone-200">
+                    <h3 class="font-bold p-3">Payment Method</h3>
+                </div>
+                <div class="">
+                    <h3 class="p-3 text-sm">
+                        PayPal
+                    </h3>
+                </div>
+            </div>
+            <div class="w-full h-fit border border-stone-200 rounded-lg bg-white">
+                <div class="border-b border-stone-200">
+                    <h3 class="font-bold p-3">Review Products</h3>
+                </div>
+                <div class="">
+                    <h3 class="p-3 text-sm">
+                        <table class='w-full'>
+                            <thead>
+                                <tr class='text-stone-500'>
+                                    <th class='w-30 md:w-70 text-left font-medium text-sm'>PRODUCT</th>
+                                    <th class='w-30 md:w-40 text-left font-medium text-sm'>QUANTITY</th>
+                                    <th class='w-120 text-left font-medium text-sm'>PRICE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for cart_item in cart_items %}
+                                <tr>
+                                    <td class='flex p-2 gap-4'>
+                                        <div>
+                                            <img src="{{ cart_item.product.images.url }}" class='h-20 w-20 object-cover' alt="">
+                                        </div>
+                                        <figcaption>
+                                            <a class='font-bold text-stone-600' href="{{ cart_item.product.get_url }}">{{cart_item.product.product_name}}</a>
+                                            <p class='text-[12px] text-stone-600'>
+                                                {% if cart_item.variations.all %}
+                                                    {% for item in cart_item.variations.all %}
+                                                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </p>
+                                        </figcaption>
+                                        
+                                    </td>
+                                    <td>
+                                        <div class=''>
+                                            <div class='flex items-center w-fit'>
+                                                
+                                                <input class='w-8 h-8 border-0' type="text" value='{{cart_item.quantity}}'>
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p class='text-stone-600 font-bold'>₹ {{cart_item.sub_total}}</var><br>
+                                            <p class='text-stone-600 text-[12px]'>₹ {{ cart_item.product.price}} each</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        {% comment %} right containers  {% endcomment %}
+        <div class="my-2 md:my-0 p-3 w-full md:w-[33%] h-fit border border-stone-200 rounded bg-white">
+            <div class="text-sm border-b border-stone-200 pb-4">
+                <div class="flex justify-between">
+                    <p>Total Price:</p>
+                    <p class="">$ {{total}}</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Tax:</p>
+                    <p class="">$ {{tax}}</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Grand Total:</p>
+                    <p class="font-bold">$ {{grand_total}}</p>
+                </div>
+            </div>
+            <div >
+                <div class="flex justify-center text-sm my-3 gap-2">
+                    <i class="fa-brands fa-cc-paypal fa-2x"></i>
+                    <i class="fa-brands fa-cc-visa fa-2x"></i>
+                </div>
+                <button class='text-sm text-white bg-[#038d63] px-2 py-2 rounded w-full'>Make Payment</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+{% endblock %}
