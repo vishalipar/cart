@@ -12,105 +12,120 @@
             </div>
             <div class='text-stone-600 space-y-4'>
                 <div class='space-y-2 md:space-y-4'>
+                    <form action="" method='POST'>
+                        {% csrf_token %}
                     <div class='flex gap-2'>
                         <div class='w-[50%]'>
                             <label for="">First Name</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="text" name='first_name' class='w-full border-stone-300 rounded' required>
                         </div>
                         <div class='w-[50%]'>
                             <label for="">Last Name</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="text" name='last_name' class='w-full border-stone-300 rounded' required>
                         </div>
                     </div>
                     <div class='flex gap-2'>
                         <div class='w-[50%]'>
                             <label for="">Email</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="email" name='email' class='w-full border-stone-300 rounded' required>
                         </div>
                         <div class='w-[50%]'>
                             <label for="">Phone Number</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="text" name='phone' class='w-full border-stone-300 rounded' required>
                         </div>
                     </div>
                     <div class='flex gap-2'>
                         <div class='w-[50%]'>
                             <label for="">Address Line 1</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="text" name='address_line_1' class='w-full border-stone-300 rounded' required>
                         </div>
                         <div class='w-[50%]'>
                             <label for="">Address Line 2</label>
-                            <input type="text" class='w-full border-stone-300 rounded'>
+                            <input type="text" name='address_line_2' class='w-full border-stone-300' rounded>
                         </div>
                     </div>
                 </div>
                 <div class='flex gap-2'>
                     <div class='w-[33%]'>
                         <label for="">City</label>
-                        <input type="text" class='w-full border-stone-300 rounded'>
+                        <input type="text" name='city' class='w-full border-stone-300 rounded' required>
                     </div>
                     <div class='w-[33%] '>
                         <label for="">State</label>
-                        <input type="text" class='w-full border-stone-300 rounded'>
+                        <input type="text" name='state' class='w-full border-stone-300 rounded' required>
                     </div>
                     <div class='w-[33%] '>
                         <label for="">Country</label>
-                        <input type="text" class='w-full border-stone-300 rounded'>
+                        <input type="text" name='country' class='w-full border-stone-300 rounded' required>
                     </div>
                 </div>
                 <div>
                     <p>Order Note</p>
-                    <textarea type="text" class='w-full border-stone-300 rounded' rows='2'></textarea>
+                    <textarea type="text" name='order_note' class='w-full border-stone-300 rounded' rows='2'></textarea>
                 </div>
             </div>
         </div>
         {% comment %} right box {% endcomment %}
         <div class='w-full md:w-[49%] mt-20 md:mt-0 h-fit border border-stone-200 rounded'>
-            <div class='m-2 md:m-8 space-y-8'>
+            <div class='m-1 md:m-8 space-y-8'>
             
-                <div class='flex justify-between w-full h-full'>
-                    <div>
-                        <div class='text-sm font-bold text-stone-400'>
-                            PRODUCT
-                        </div>
-                        <div class='flex w-fit'>
-                            <div class='w-[11vh] '>
-                                <img
-                                    src="https://www.photographmyproduct.co.uk/wp-content/uploads/2020/10/Shoes-product-photography-photograph-my-product-20200117-30.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div class='p-2 md:p-4'>
-                                <p class='text-[13px] md:text-lg'>Product-Name</p>
-                                <div class='text-[11px] md:text-[12px] text-stone-600'>
-                                    <p>Color : White</p>
-                                    <p>Size : Medium</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=''>
-                        <p class='text-sm font-bold text-stone-400'>QUANTITY</p>
-                        <div class='pt-4'>
-                            <p>1</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class='text-sm font-bold text-stone-400'>PRICE</p>
-                        <div class='pt-4'>
-                            <p class='font-bold'>₹ 2000</p>
-                            <p class='text-[12px] text-stone-400'>₹ 2000 each</p>
-                        </div>
-                    </div>
+                <div>
+                    <table class='w-full'>
+                        <thead>
+                            <tr class='text-stone-500'>
+                                <th class='w-30 md:w-70 text-left font-medium'>PRODUCT</th>
+                                <th class='w-30 md:w-40 text-left font-medium'>QUANTITY</th>
+                                <th class='w-120 text-left font-medium'>PRICE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for cart_item in cart_items %}
+                            <tr>
+                                <td class='flex p-2 gap-4'>
+                                    <div>
+                                        <img src="{{ cart_item.product.images.url }}" class='h-20 w-20 object-cover' alt="">
+                                    </div>
+                                    <figcaption>
+                                        <a class='font-bold text-stone-600' href="{{ cart_item.product.get_url }}">{{cart_item.product.product_name}}</a>
+                                        <p class='text-[12px] text-stone-600'>
+                                            {% if cart_item.variation.all %}
+                                                {% for item in cart_item.variation.all %}
+                                                    {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </p>
+                                    </figcaption>
+                                    
+                                </td>
+                                <td>
+                                    <div class=''>
+                                        <div class='flex items-center w-fit'>
+                                            
+                                            <input class='w-8 h-8 border-0' type="text" value='{{cart_item.quantity}}'>
+                                            
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p class='text-stone-600 font-bold'>₹ {{cart_item.sub_total}}</var><br>
+                                        <p class='text-stone-600 text-[12px]'>₹ {{ cart_item.product.price}} each</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 
                 {% comment %} bottom buttons {% endcomment %}
                 <div class='flex flex-col space-y-2'>
-                    <form action="{% url 'place_order' %}" class=''>
-                        <button type='submit' class='bg-[#038d63] py-2 w-full text-white rounded'>
+                        <button type='submit' name='submit' class='bg-[#038d63] py-2 w-full text-white rounded'>
                             Place Order
                         </button>
-                    </form>
                     <a href="{% url 'store' %}" class='flex justify-center border border-stone-500 py-2 rounded'>Continue Shopping</a>
+                    </form>
                 </div>
                 
             
