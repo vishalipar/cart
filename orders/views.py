@@ -119,20 +119,45 @@ def payments(request):
     CartItem.objects.filter(user = request.user).delete()
     
     # # send order received email to customer
-    # mail_subject = "Thank you for your order!!"
-    # message = render_to_string('orders/order_received_email.html', {
-    #     'user': request.user,
-    #     'order':order
-    # })
-    # to_email = request.user.email
-    # send_email = EmailMessage(mail_subject, message, to=[to_email])
-    # send_email.send()
+    mail_subject = "Thank you for your order!!"
+    message = render_to_string('orders/order_received_email.html', {
+        'user': request.user,
+        'order':order
+    })
+    to_email = request.user.email
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()
     
     # # send order number nd transaction id back to sendData method via JsonResponse
-    # data = {
-    #     'order_number': order.order_number,
-    #     'transID': payment.payment_id,
-    # }
-    # return JsonResponse(data)
-    return render(request, 'orders/payments.html')
+    data = {
+        'order_number': order.order_number,
+        'transID': payment.payment_id,
+    }
+    return JsonResponse(data)
     
+
+def order_complete(request):
+    # order_number = request.GET.get('order_number')
+    # transID = request.GET.get('payment_id')
+    
+    # try:
+    #     order = Order.objects.get(order_number = order_number, is_ordered=True)
+    #     ordered_products = OrderProduct.objects.filter(order_id = order.id)
+        
+    #     subtotal = 0
+    #     for i in ordered_products:
+    #         subtotal += i.product_price * i.quantity
+        
+    #     payment = Payment.objects.get(payment_id = transID)
+    #     context = {
+    #         'order' : order,
+    #         'ordered_products': ordered_products,
+    #         'order_number': order.order_number,
+    #         'transID': payment.payment_id,
+    #         'payment': payment,
+    #         'subtotal': subtotal,
+    #     }
+    #     return render(request, 'orders/order_complete.html', context)
+    # except (Payment.DoesNotExist, Order.DoesNotExist):
+    #     return redirect('home')
+    return render(request, 'orders/order_complete.html')
