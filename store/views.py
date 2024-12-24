@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from .forms import ReviewForm
-from .models import ReviewRating
+from product.models import ReviewRating
 from django.contrib import messages
 from orders.models import OrderProduct
 # Create your views here.
@@ -55,10 +55,15 @@ def product_detail(request, category_slug, product_slug):
     else:
         orderproduct = None
         
+    # get the review
+    reviews = ReviewRating.objects.filter(product_id=single_product, status=True)
+    
+        
     context = {
         'single_product':single_product,
         'in_cart'       :in_cart,
         'orderproduct'  :orderproduct,
+        'reviews'       :reviews,
     }
     return render(request, 'store/prod_detail.html', context)
     

@@ -24,7 +24,15 @@
                             {{single_product.product_name}}
                         </div>
                         <div class='my-4'>
-                            stars 1 review
+                            <span>
+                                <i class="fa fa-star{% if single_product.averageReview > 0 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview > 1 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview > 2 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview > 3 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if single_product.averageReview > 4 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                
+                            </span> 
+                            <span>{{ single_product.countReview}} reviews</span>
                             <p class='text-xl md:text-2xl text-stone-800 font-bold'>₹ {{single_product.price}}</p>
                         </div>
                         <div>
@@ -84,13 +92,10 @@
                         <span class="flex items-center space-x-1">
                             {% for i in "12345" %}
                                 <i 
-                                    class="fa fa-star text-gray-400 hover:text-yellow-500 cursor-pointer"
+                                    class="fa fa-star star text-gray-400 hover:text-yellow-500 cursor-pointer"
                                     data-value="{{ i }}"
                                     onclick="setRating(this, {{ i }})"></i>
                             {% endfor %}
-                            
-                            
-                            <span class="text-sm text-gray-600">{{ single_product.countReview }} reviews</span>
                         </span>
                         
                         <!-- Hidden Input for Rating -->
@@ -126,21 +131,40 @@
                         <p>Customer Reviews</p>
                     </div>
                     <div>
-                        stars 
-                        1 reviews
-                        <div class='border border-stone-300 p-4 w-full h-fit space-y-2 md:space-y-4 mt-4 rounded'>
-                            <div class='flex justify-between'>
-                                <div>
-                                    <p class='font-bold'>vishal ipar</p>
-                                    stars
+                        {% comment %} stars  {% endcomment %}
+                        <span>
+                            <i class="fa fa-star{% if single_product.averageReview > 0 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_product.averageReview > 1 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_product.averageReview > 2 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_product.averageReview > 3 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_product.averageReview > 4 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                            
+                        </span>
+                        <span>{{ single_product.countReview}} reviews</span>
+                        
+                        {% for review in reviews %}
+                            <div class='border border-stone-300 p-4 w-full h-fit space-y-2 md:space-y-4 mt-4 rounded'>
+                                <div class='flex justify-between'>
+                                    <div>
+                                        <p class='font-bold'>{{review.user.full_name}}</p>
+                                        {% comment %} stars {% endcomment %}
+                                        <span>
+                                            <i class="fa fa-star {% if review.rating > 0 %}text-yellow-500 {% else %}text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star {% if review.rating > 1 %}text-yellow-500 {% else %}text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star {% if review.rating > 2 %}text-yellow-500 {% else %}text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star {% if review.rating > 3 %}text-yellow-500 {% else %}text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star {% if review.rating > 4 %}text-yellow-500 {% else %}text-gray-400 {% endif %}" aria-hidden="true"></i>
+                                        </span>
+                                        
+                                    </div>
+                                    <p class='text-sm md:text-md text-stone-500'>{{review.updated_at}}</p>
                                 </div>
-                                <p class='text-sm md:text-md text-stone-500'>Oct. 30, 2024, 3:36 p.m.</p>
+                                <div class=''>
+                                    <p class='font-bold'>{{review.subject}}</p>
+                                    <p>{{review.review}}</p>
+                                </div>
                             </div>
-                            <div class=''>
-                                <p class='font-bold'>Nice shoe</p>
-                                <p>This is nice shoes.</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     
                 </div>
@@ -155,10 +179,11 @@
     <div></div>
 </div>
 
+{% comment %} hover,click,fill {% endcomment %}
 <script>
-    document.querySelectorAll(".fa-star").forEach((star, idx) => {
+    document.querySelectorAll(".star").forEach((star, idx) => {
         star.addEventListener("click", () => {
-            document.querySelectorAll(".fa-star").forEach((s, i) => {
+            document.querySelectorAll(".star").forEach((s, i) => {
                 s.classList.toggle("text-yellow-500", i <= idx);
                 s.classList.toggle("text-gray-400", i > idx);
             });
@@ -173,7 +198,7 @@
         document.getElementById('rating').value = value;
     
         // Highlight the selected stars
-        const stars = document.querySelectorAll('.fa-star');
+        const stars = document.querySelectorAll('.star');
         stars.forEach((s, index) => {
             if (index < value) {
                 s.classList.add('text-yellow-500');
@@ -184,7 +209,7 @@
             }
         });
     }
-    </script>
+</script>
     
 
 {% endblock %}
