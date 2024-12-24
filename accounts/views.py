@@ -11,10 +11,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from cart.views import _cart_id
 from cart.models import Cart,CartItem
-
 from .forms import RegistrationForm
 from .models import Account
 import requests
+from orders.models import Order
 
 # Create your views here.
 def register(request):
@@ -83,21 +83,7 @@ def activate(request, uidb64, token):
         return redirect('register')
             
     
-def login(request):   
-    # if request.method == 'POST': 
-    #     email = request.POST['email']
-    #     password = request.POST['password']
-    #     user = auth.authenticate(email=email, password=password)
-        
-    #     print(user, email, password)
-        
-    #     if user is not None:
-    #         auth.login(request, user)
-    #         return redirect('home')
-    #     else:
-    #         messages.error(request, 'Invalid login credentials.')
-    #         return redirect('login')
-            
+def login(request):         
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -238,6 +224,26 @@ def resetPassword(request):
     else:     
         return render(request, 'accounts/resetPassword.html')
   
+
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
+    orders_count = orders.count()
+    
+    # try:
+    #     userprofile = UserProfile.objects.get(user_id=request.user.id)
+    # except UserProfile.DoesNotExist:
+    #     userprofile = UserProfile.objects.create(user=request.user)
+    context = {
+        'orders_count': orders_count,
+        # 'userprofile': userprofile,
+    }
+    return render(request, 'accounts/dashboard.html', context)
+    
+@login_required(login_url='login')
+def my_orders(request):
+    orders = Order.objects.filter(user = request.user, is_ordered=True).order_by('-created_at')
+    context = {
+        'orders':orders,
+    }
+    return render(request, 'accounts/my_orders.html', context)

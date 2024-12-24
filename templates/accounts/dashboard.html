@@ -23,16 +23,16 @@
                             Total Orders
                         </strong>
                         <strong class='text-xl text-stone-700'>
-                            2
+                            {{ orders_count }}
                         </strong>
-                        <a href="" class='text-[#038d63]'>View Orders</a>
+                        <a href="{% url 'my_orders' %}" class='text-[#038d63]'>View Orders</a>
                     </div>
                 </div>
                 
                 <div class='flex justify-center items-center border border-stone-200 rounded-lg h-[20vh] w-[49%]'>
                     <div class='flex flex-col items-center h-fit w-fit'>
-                        <span class='h-12 w-12 rounded-full bg-red-600'>
-                            
+                        <span class='flex justify-center h-12 w-12 overflow-hidden rounded-full bg-red-600'>
+                            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Default Profile Picture" class="w-auto h-full" style=''>
                         </span>
                         <span class='text-stone-700 text-[12px] md:text-[16px]'>
                             {{user.email}}
