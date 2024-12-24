@@ -68,23 +68,58 @@
                 </div>
             </div>
         </div>
+        
+        {% comment %} review  {% endcomment %}
         <div class='text-stone-700 h-fit w-full md:w-[75%] mt-4 pt-1'>
             <div class='space-y-4'>
-                <div class='text-xl  font-bold'>
-                    Write Your Review
-                </div>
-                <div class='space-y-4'>
-                    <p>How do you rate this product?</p>
-                    stars
-                    <div class='flex flex-col'>
-                        <label for="">Review Title:</label>
-                        <input type="text" class='border-stone-300 rounded'>
+                
+                <form action="{% url 'submit_review' single_product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="text-xl font-bold">Write Your Review</div>
+                
+                    <div class="space-y-4">
+                        <p>How do you rate this product?</p>
+                        
+                        <!-- Stars for Rating -->
+                        <span class="flex items-center space-x-1">
+                            {% for i in "12345" %}
+                                <i 
+                                    class="fa fa-star text-gray-400 hover:text-yellow-500 cursor-pointer"
+                                    data-value="{{ i }}"
+                                    onclick="setRating(this, {{ i }})"></i>
+                            {% endfor %}
+                            
+                            
+                            <span class="text-sm text-gray-600">{{ single_product.countReview }} reviews</span>
+                        </span>
+                        
+                        <!-- Hidden Input for Rating -->
+                        <input type="hidden" name="rating" id="rating" required>
+                
+                        <!-- Other Form Fields -->
+                        <div class="flex flex-col">
+                            <label for="subject">Review Title:</label>
+                            <input name="subject" type="text" class="border-stone-300 rounded">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="review">Review:</label>
+                            <textarea name="review" class="border-stone-300 rounded" rows="4"></textarea>
+                        </div>
+                        
+                        {% if user.is_authenticated %}
+                            {% if orderproduct %}
+                                <input type="submit" value="Submit Review" class="bg-[#038d63] py-2 px-3 text-white rounded-md">
+                            {% else %}
+                                <p>You must purchase this product to post a review.</p>
+                            {% endif %}
+                        {% else %}
+                            <p>You must be logged in to post a review. <a href="{% url 'login' %}" class="text-[#038d63]">Login now</a></p>
+                        {% endif %}
                     </div>
-                    <div class='flex flex-col'>
-                        <label for="">Review:</label>
-                        <textarea type="text" class='border-stone-300 rounded' rows='4'></textarea>
-                    </div>
-                    <p>You must be logged in to post a review. <a href="{% url 'login' %}" class='text-[#038d63]'> Login now</a></p>
+                    {% include "include/alerts.html" %}
+                </form>
+                
+                    
                 </div>
                 <div class='pt-4'>
                     <div class='text-xl md:text-3xl font-bold'>
@@ -120,5 +155,36 @@
     <div></div>
 </div>
 
+<script>
+    document.querySelectorAll(".fa-star").forEach((star, idx) => {
+        star.addEventListener("click", () => {
+            document.querySelectorAll(".fa-star").forEach((s, i) => {
+                s.classList.toggle("text-yellow-500", i <= idx);
+                s.classList.toggle("text-gray-400", i > idx);
+            });
+        });
+    });
+    
+</script>
+
+<script>
+    function setRating(star, value) {
+        // Set the hidden input value
+        document.getElementById('rating').value = value;
+    
+        // Highlight the selected stars
+        const stars = document.querySelectorAll('.fa-star');
+        stars.forEach((s, index) => {
+            if (index < value) {
+                s.classList.add('text-yellow-500');
+                s.classList.remove('text-gray-400');
+            } else {
+                s.classList.add('text-gray-400');
+                s.classList.remove('text-yellow-500');
+            }
+        });
+    }
+    </script>
+    
 
 {% endblock %}
