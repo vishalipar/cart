@@ -41,7 +41,14 @@
                 >{{product.product_name}}</span
               >
               <span class="font-medium text-base md:text-lg">₹ {{product.price}}</span>
-              <span>Ratings</span>
+              <span>
+                {% comment %} Ratings {% endcomment %}
+                  <i class="fa fa-star{% if product.averageReview > 0 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview > 1 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview > 2 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview > 3 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview > 4 %} text-yellow-500 {% else %} text-gray-400 {% endif %}" aria-hidden="true"></i>
+              </span>
             </div>
           </div>
         </a>
