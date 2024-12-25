@@ -7,3 +7,18 @@
         <li><a href="https://www.linkedin.com/in/vishal-ipar/" class="nav-link"> <i class="ri-linkedin-fill"></i> Linkedin </a></li>
     </ul>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('.thumb a').hover(function(e){
+			e.preventDefault();
+			$('.mainImage img').attr('src', $(this).attr('href'));
+		}),
+        $('.thumb a').click(function(e){
+            e.preventDefault();
+        })
+	})
+</script>
