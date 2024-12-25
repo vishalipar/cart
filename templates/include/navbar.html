@@ -111,10 +111,14 @@
     {% if user.id %}
     <div class='mt-8 h-[10vh] w-full'>
       <div class='flex py-2 h-[9vh] w-full bg-[#038d63]'>
-        <div class='h-[7vh] w-[7vh] ml-8 rounded-full bg-white'>
+        <div class='flex items-center h-[7vh] w-[7vh] ml-8 rounded-full overflow-hidden bg-white'>
           {% comment %} user profile image  {% endcomment %}
-          <span class='flex justify-center h-fit w-fit overflow-hidden rounded-full bg-red-600'>
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Default Profile Picture" class="w-auto h-full" style=''>
+          <span class='flex justify-center h-fit w-fit bg-red-600'>
+            {% if userprofile.profile_picture %}
+              <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture"  class="h-full w-auto">
+            {% else %}
+              <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Default Profile Picture" class="w-auto h-full" style=''>
+            {% endif %}
         </span>
         </div>
         <div class='ml-2 text-white'>

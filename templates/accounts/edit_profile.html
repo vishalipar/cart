@@ -1,0 +1,88 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class='min-h-[77vh] pt-2 md:pt-12 bg-stone-100'>
+  <div class='block md:flex justify-between h-fit md:h-[32vh] w-[95%] md:w-[78%] mx-auto'>
+      {% comment %} left box {% endcomment %}
+      {% include "include/dashboard_sidebar.html" %}
+      
+      
+      {% comment %} right box {% endcomment %}
+      <div class='h-fit w-full md:w-[75%] mt-2 md:mt-0 py-2 px-0 md:px-4 text-stone-500 lg:border border-stone-200 bg-white rounded'>
+          <div class="pb-2">
+            <p class="font-bold">Edit your profile</p>
+          </div>
+                <div class="">
+                  <div class='flex justify-center md:justify-end'> 
+                    <div class='flex items-center h-20 w-20 overflow-hidden mr-4 border-4 border-green-700 rounded-[50%] bg-stone-200'> 
+                      {% if userprofile.profile_picture %}
+                        <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture"  class="h-auto w-full"> 
+                      {% else %}
+                      <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Default Profile Picture" class="w-auto h-full" style=''>
+                      {% endif %}
+                    </div>                   
+                  </div>                   
+                    <div class="my-4">
+                        <form action="{% url 'edit_profile' %}" method='POST' enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="flex justify-between gap-2 mb-1">
+                            <div class="w-1/2">
+                              <label for="">First Name</label><br>
+                              {{user_form.first_name}}
+                            </div>
+                            <div class="w-1/2">
+                              <label for="">Last Name</label><br>
+                              {{user_form.last_name}}
+                            </div>
+                          </div>
+                          <div class="flex justify-between gap-2 mb-1">
+                            <div class="w-1/2">
+                              <label for="">Phone Number</label>
+                              {{user_form.phone_number}}                            </div>
+                            <div class="w-1/2">
+                              <label for="">Profile Picture</label>
+                              {{profile_form.profile_picture}}
+                            </div>
+                          </div>
+                          <div class="mb-1">
+                            <label for="">Address Line 1</label>
+                            {{profile_form.address_line_1}}
+                          </div>
+                          <div class="mb-1">
+                            <label for="">Address Line 2</label>
+                            {{profile_form.address_line_2}}
+                          </div>
+                          <div class="flex justify-between gap-1 mb-1">
+                            <div class="w-1/3">
+                              <label for="">City</label>
+                              {{profile_form.city}}
+                            </div>
+                            <div class="w-1/3">
+                              <label for="">State</label>
+                              {{profile_form.state}}
+                            </div>
+                            <div class="w-1/3">
+                              <label for="">Country</label>
+                              {{profile_form.country}}
+                            </div>
+                          </div>
+                          <div class="text-center md:text-start">
+                            <input type="submit" value="Save" class='bg-[#038d63] text-white py-1 px-3 mt-2 rounded-md'>
+                          </div>
+                        </form>
+                    </div>
+                    
+            </div> <!-- card-body .// -->
+            
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+  </div>
+
+
+
+{% endblock %}

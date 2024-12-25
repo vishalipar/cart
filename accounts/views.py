@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from cart.views import _cart_id
 from cart.models import Cart,CartItem
-from .forms import RegistrationForm
-from .models import Account
+from .forms import RegistrationForm, UserForm, UserProfileForm
+from .models import Account,UserProfile
 import requests
 from orders.models import Order
 
@@ -230,13 +230,14 @@ def dashboard(request):
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
     
-    # try:
-    #     userprofile = UserProfile.objects.get(user_id=request.user.id)
-    # except UserProfile.DoesNotExist:
-    #     userprofile = UserProfile.objects.create(user=request.user)
+    
+    try:
+        userprofile = UserProfile.objects.get(user_id=request.user.id)
+    except UserProfile.DoesNotExist:
+        userprofile = UserProfile.objects.create(user=request.user)
     context = {
         'orders_count': orders_count,
-        # 'userprofile': userprofile,
+        'userprofile': userprofile,
     }
     return render(request, 'accounts/dashboard.html', context)
     
@@ -247,3 +248,24 @@ def my_orders(request):
         'orders':orders,
     }
     return render(request, 'accounts/my_orders.html', context)
+
+@login_required(login_url='login')
+def edit_profile(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Your profile has been updated.")
+            return redirect('edit_profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile)
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'userprofile': userprofile,
+    }
+    return render(request, 'accounts/edit_profile.html', context)

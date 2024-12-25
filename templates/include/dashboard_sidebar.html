@@ -2,8 +2,8 @@
     <div class="flex flex-col h-fit w-full bg-white rounded-lg">
         <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit rounded-t-lg text-[#038d63] {% if '/accounts/' == request.path %}bg-[#038d63] text-white{% endif %}">Dashboard</a>
         <a href="{% url 'my_orders' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit text-[#038d63] {% if '/my_orders/' in request.path %}bg-[#038d63] text-white{% endif %}">My Orders</a>
-        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit text-[#038d63] ">Edit Profile</a>
-        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit rounded-b-lg text-[#038d63] ">Change Password</a>
+        <a href="{% url 'edit_profile' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit text-[#038d63] {% if '/edit_profile/' in request.path %}bg-[#038d63] text-white{% endif %}">Edit Profile</a>
+        <a href="{% url 'dashboard' %}" class="border border-stone-200 pl-4 py-2 w-full h-fit rounded-b-lg text-[#038d63] {% if '/#/' in request.path %}bg-[#038d63] text-white{% endif %}">Change Password</a>
     </div>
     
     <div class="flex h-fit mt-8">
