@@ -25,7 +25,7 @@
                     </tr>
                     {% for order in orders %}
                         <tr class="text-[12px] md:text-base">
-                            <td class=" font-bold py-1">{{order.order_number}}</td>
+                            <td class="text-[#038d63] font-bold py-1"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></td>
                             <td>{{order.full_name}}</td>
                             <td>{{order.phone}}</td>
                             <td>${{order.order_total}}</td>

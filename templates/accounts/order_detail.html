@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="flex justify-center my-2 min-h-[80vh]">
+    <div class="h-fit w-full md:w-[50%]">
+        <div class="bg-[#f1f1f1] text-stone-700 py-9 md:py-14 px-4 md:px-12 h-fit">
+            <div class="flex justify-between h-fit">
+                <div >
+                    <a href="{% url 'home' %}" class="text-2xl md:text-4xl font-bold">
+                        <span class="text-[#038d63]">VI</span
+                        ><span class="text-stone-600 ml-1">CART</span>
+                      </a>
+                </div>
+                <div>
+                    {% comment %} <p class="font-bold">Invoiced To</p> {% endcomment %}
+                    <ul class="list-unstyled text-right">
+                        <li><strong>Invoiced To</strong></li>
+                        <li>{{order.full_name}}</li>
+                        <li>{{order.full_address}}</li>
+                        <li>{{order.city}}, {{order.state}}</li>
+                        <li>{{order.country}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="py-4">
+                <ul class="list-unstyled mb0">
+                    <li><strong>Order</strong> #{{order.order_number}}</li>
+                    <li><strong>Transaction ID </strong> {{order.payment.payment_id}}</li>
+                    <li><strong>Order Date:</strong> {{order.created_at}}</li>
+                    <li><strong>Status:</strong> {{order.payment.status}}</li>
+                </ul>
+            </div>
+            {% comment %} table  {% endcomment %}
+            <div class="">
+                <table class="table border-collapse border border-stone-300 w-full">
+                    <thead>
+                        <tr class="">
+                            <th class="w-[29%] text-center border border-stone-300 py-2">Products</th>
+                            <th class="w-[14%] text-center border border-stone-300">Qty</th>
+                            <th class="w-[25%] text-center border border-stone-300">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_detail %}
+                        <tr class="">
+                            <td class="border border-stone-300 py-2 px-2">{{item.product.product_name}}
+                                <p class="text-[13px] text-stone-500">
+                                    {% if item.variations.all %}
+                                    {% for i in item.variations.all %}
+                                    {{ i.variation_category | capfirst }} : {{ i.variation_value | capfirst }} <br>
+                                    {% endfor %}{% endif %}
+                                </p>
+                            </td>
+                            
+                            <td class="text-center border border-stone-300">{{item.quantity}}</td>
+                            <td class="text-center border border-stone-300">${{item.product_price}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class=" border border-stone-300">
+                            <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Sub Total:</th>
+                            <th class="text-center">${{subtotal}}</th>
+                        </tr>
+                        <tr class=" border border-stone-300">
+                            <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Tax:</th>
+                            <th class="text-center">${{order.tax}}</th>
+                        </tr>
+                        
+                        <tr class=" border border-stone-300">
+                            <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Grand Total:</th>
+                            <th class="text-center">${{order.order_total}}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <center class="pt-2"><p>Thank you for shopping with us!</p></center>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
