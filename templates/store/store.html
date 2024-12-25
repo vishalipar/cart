@@ -132,14 +132,14 @@
       <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
       {% for product in products %}
         <div
-          class="bg-white border-2 h-fit rounded p-2 mx-8 md:mx-auto mb-4"
+          class="bg-white border-2 w-[77%] h-fit rounded p-2 mx-8 md:mx-auto mb-4"
         >
           <div class="mx-4 w-[90%]">
             <a href="{{ product.get_url }}">
               <img
                 src="{{product.images.url}}"
                 alt=""
-                class='h-60 w-auto mx-auto'
+                class='h-60 w-auto mx-auto object-contain'
               />
             </a>
           </div>
