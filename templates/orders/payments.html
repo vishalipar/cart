@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% block title %}Review & Pay{% endblock %}
 
 {% block content %}
 
@@ -57,7 +58,7 @@
                                 <tr>
                                     <td class='flex p-2 gap-4'>
                                         <div>
-                                            <img src="{{ cart_item.product.images.url }}" class='h-20 w-20 object-cover' alt="">
+                                            <img src="{{ cart_item.product.images.url }}" class='h-20 w-20 object-contain' alt="">
                                         </div>
                                         <figcaption>
                                             <a class='font-bold text-stone-600' href="{{ cart_item.product.get_url }}">{{cart_item.product.product_name}}</a>
@@ -99,15 +100,15 @@
             <div class="text-sm border-b border-stone-200 pb-4">
                 <div class="flex justify-between">
                     <p>Total Price:</p>
-                    <p class="">$ {{total}}</p>
+                    <p class="">₹ {{total}}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Tax:</p>
-                    <p class="">$ {{tax}}</p>
+                    <p class="">₹ {{tax}}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Grand Total:</p>
-                    <p class="font-bold">$ {{grand_total}}</p>
+                    <p class="font-bold">₹ {{grand_total}}</p>
                 </div>
             </div>
             <div >

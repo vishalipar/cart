@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}product detail{% endblock %}
+{% block title %}Product detail{% endblock %}
 {% block content %}
 
 <div class='mb-0 md:mb-2'>
@@ -48,7 +48,7 @@
                         <div class='border-t border-gray-200 mt-4 mb-2 md:mb-8 pt-4 space-y-4'>
                             <div class='space-y-2'>
                                 <label for="" class='font-bold text-stone-700 '>Choose color</label><br>
-                                <select name="color" id="" class='text-stone-700 py-1 rounded'>
+                                <select name="color" id="" class='text-stone-700 py-1 rounded' required>
                                     <option value="" selected disabled>Select</option>
                                     {% for i in single_product.variation_set.colors %}
                                     <option value="{{ i.variation_value | lower }}">{{i.variation_value | capfirst }}</option>

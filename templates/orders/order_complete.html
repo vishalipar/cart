@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
-
+{% block title %}Order complete successful !{% endblock %}
 
 {% block content %}
 
@@ -62,23 +62,23 @@
                             </td>
                             
                             <td class="text-center border border-stone-300">{{item.quantity}}</td>
-                            <td class="text-center border border-stone-300">${{item.product_price}}</td>
+                            <td class="text-center border border-stone-300">₹{{item.product_price}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                     <tfoot>
                         <tr class=" border border-stone-300">
                             <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Sub Total:</th>
-                            <th class="text-center">${{subtotal}}</th>
+                            <th class="text-center">₹{{subtotal}}</th>
                         </tr>
                         <tr class=" border border-stone-300">
                             <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Tax:</th>
-                            <th class="text-center">${{order.tax}}</th>
+                            <th class="text-center">₹{{order.tax}}</th>
                         </tr>
                         
                         <tr class=" border border-stone-300">
                             <th colspan="2" class="text-right border border-stone-300 py-2 px-2">Grand Total:</th>
-                            <th class="text-center">${{order.order_total}}</th>
+                            <th class="text-center">₹{{order.order_total}}</th>
                         </tr>
                     </tfoot>
                 </table>

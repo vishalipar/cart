@@ -20,7 +20,7 @@ class RegistrationForm(forms.ModelForm):
         self.fields['email'].widget.attrs['placeholder'] = 'Enter email address'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter Phone Number'
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'rounded'
+            self.fields[field].widget.attrs['class'] = 'placeholder-stone-400 focus:placeholder-stone-500 text-sm border border-stone-200 rounded'
             
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()

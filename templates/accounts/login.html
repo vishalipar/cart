@@ -22,23 +22,23 @@
   {% else %} {% comment %} login form {% endcomment %}
   <div class="flex justify-center items-center h-[80vh] w-full">
     <div
-      class="h-fit w-[96%] md:w-[26%] border border-gray-500 rounded pt-8 px-8"
+      class="h-fit w-[96%] md:w-[26%] border border-stone-300 bg-white rounded pt-4 md:pt-8 px-8"
     >
       <div class="text-stone-700 text-2xl font-bold">Sign in</div>
       {% include "include/alerts.html" %}
 
       <form action="{% url 'login' %}" method='POST'>
         {% csrf_token %}
-        <div class="mt-8 space-y-4">
+        <div class="mt-8 space-y-2 md:space-y-4">
           <input
             name="email"
-            class="w-full rounded-lg"
+            class="w-full placeholder-stone-400 focus:placeholder-stone-600 border-stone-300 rounded-lg"
             type="email"
             placeholder="Email Address"
           />
           <input
             name="password"
-            class="w-full rounded-lg"
+            class="w-full placeholder-stone-400 focus:placeholder-stone-600 border-stone-300 rounded-lg"
             type="password"
             placeholder="Password"
           />
@@ -55,13 +55,13 @@
           </button>
         </div>
       </form>
-      <div class="mb-4 pb-4 border-b border-t border-stone-400">
+      <div class="mb-4 pb-4 border-b border-t border-stone-300">
         <p class="text-stone-800 font-bold mt-2">Buying for work?</p>
         <a href="{% url 'login' %}" class="text-[#038d63]"
           >Shop on vicart Business</a
         >
       </div>
-      <div class="mb-4">
+      <div class="text-stone-600 mb-4">
         <center class="" for="">
           Dont have account?
           <a href="{% url 'register' %}" class="text-[#038d63]">Sign up</a>
