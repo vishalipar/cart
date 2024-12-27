@@ -35,21 +35,23 @@
             class="w-full placeholder-stone-400 focus:placeholder-stone-600 border-stone-300 rounded-lg"
             type="email"
             placeholder="Email Address"
+            required
           />
           <input
             name="password"
             class="w-full placeholder-stone-400 focus:placeholder-stone-600 border-stone-300 rounded-lg"
             type="password"
             placeholder="Password"
+            required
           />
         </div>
-        <div class="flex justify-end mt-4 mb-4 text-[#038d63]">
+        <div class="flex justify-end mt-4 mb-4 text-[#038d63] hover:bg-text-800">
           <a href="{% url 'forgotPassword' %}">Forgot password?</a>
         </div>
         <div>
           <button
             type="submit"
-            class="bg-[#038d63] w-full text-white py-2 mb-8 rounded-lg"
+            class="bg-[#038d63] hover:bg-green-800 w-full text-white py-2 mb-8 rounded-lg"
           >
             Login
           </button>

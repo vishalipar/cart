@@ -13,7 +13,7 @@
                     <ul class="thumb">
                         <li class="flex space-x-1 md:space-x-2 w-full h-[10vh]">
                             {% for i in product_gallery %}
-                                <div class="h-[10vh] md:h-[10vh] w-[11vh] md:w-[14vh] flex justify-center border border-stone-800">
+                                <div class="h-[10vh] md:h-[10vh] w-[11vh] md:w-[14vh] flex justify-center border hover:border-2 border-stone-800 hover:border-green-800">
                                     <a href="{{i.image.url}}" target='mainImage'><img src="{{i.image.url}}"  class='h-full w-fit object-contain'alt="Product Image"></a>
                                 </div>
                             {% endfor %}
@@ -69,7 +69,7 @@
                             {% if single_product.stock == 0 %}
                             <h3 class='text-red-600 text-lg'>Out of stock</h3>
                             {% else %}
-                            <button type='submit' class='bg-[#038d63] px-4 py-2 rounded text-white'>
+                            <button type='submit' class='bg-[#038d63] hover:bg-green-800 px-4 py-2 rounded text-white'>
                                 Add to cart
                                 <i class="fa-solid fa-cart-shopping pl-4"></i>
                             </button>
