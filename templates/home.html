@@ -1,14 +1,13 @@
 {% extends "index.html" %} {% block title %}VICart{% endblock %} 
 {% block content %}
 
-<div class="hidden md:block relative w-full h-64 my-1 md:my-3 overflow-hidden z-0">
+<div class="hidden md:block relative w-full h-64 my-3 overflow-hidden z-0">
   <!-- Slider Wrapper -->
   <div id="slider" class="flex transition-transform duration-700">
     <!-- Dynamic images will be appended here -->
     {% for image in images %}
-    <img src="{{ image.images.url }}" class="hidden md:block w-auto md:w-full h-64 md:h-full object-cover object-center" alt="VICart Banner">
+    <img src="{{ image.images.url }}" class="hidden md:block w-full h-full object-cover object-center" alt="VICart Banner">
     {% endfor %}
-    
   </div>
 
   <!-- Buttons for Previous/Next -->
@@ -25,7 +24,8 @@
   </div>
 </div>
 
-<div class="block md:hidden h-60 w-full overflow-hidden">
+{% comment %} small device banner  {% endcomment %}
+<div class="block md:hidden h-60 w-full overflow-hidden border border-stone-300">
     {% for smallbanner in smallbanners %}
     <img src="{{ smallbanner.smallimages.url }}" class="w-full h-auto md:h-full object-cover object-center" alt="VICart Banner">
     {% endfor %}
